@@ -1,0 +1,98 @@
+<p>Reactive forms</p>
+<form [formGroup]="newForm">
+  <div class="row">
+    <div class="col-6">
+      <label for="firstname">First Name</label>
+      <input class="form-control" formControlName="firstname" />
+      <p *ngIf="newForm.controls['firstname'].errors">First name required</p>
+      <label for="mail">Email</label>
+      <input class="form-control" type="email" formControlName="email" />
+      <p *ngIf="newForm.controls['email'].errors">Email required</p>
+      <label for="company">Company</label>
+      <input class="form-control" formControlName="company" />
+      <p *ngIf="newForm.controls['company'].errors">Company required</p>
+      <label for="dob">DOB</label>
+      <input class="form-control" type="date" formControlName="dob" />
+      <p *ngIf="newForm.controls['dob'].errors">Dob required</p>
+      <label for="password">Password</label>
+      <input class="form-control" type="password" formControlName="password" />
+      <p *ngIf="newForm.controls['password'].errors">Password required</p>
+      <label for="confirmpassword">Confirm Password</label>
+      <input
+        class="form-control"
+        type="password"
+        formControlName="confirmpassword"
+      />
+      <p *ngIf="newForm.controls['confirmpassword'].errors">
+        Confirm password required
+      </p>
+    </div>
+    <div class="col-6">
+      <label for="lastname">Last Name</label>
+      <input class="form-control" formControlName="lastname" />
+      <p *ngIf="newForm.controls['lastname'].errors">lastname required</p>
+      <label for="phone">Phone</label>
+      <input class="form-control" formControlName="phone" />
+      <label for="lastname">Gender</label>
+      <div class="form-check">
+        <input
+          class="form-check-input"
+          type="radio"
+          value="male"
+          id="flexCheckDefault"
+          formControlName="gender"
+        />
+        <label class="form-check-label" for="flexCheckDefault"> Male </label>
+      </div>
+      <div class="form-check">
+        <input
+          class="form-check-input"
+          type="radio"
+          value="female"
+          id="flexCheckDefault"
+          formControlName="gender"
+        />
+        <label class="form-check-label" for="flexCheckDefault"> Female </label>
+      </div>
+    </div>
+  </div>
+</form>
+<button
+  class="btn btn-primary mt-2"
+  (click)="register()"
+  [disabled]="!newForm.valid"
+  *ngIf="!updateBtns"
+>
+  Register
+</button>
+<button class="btn btn-primary mt-2" (click)="update()" *ngIf="updateBtns">
+  Update
+</button>
+<button class="btn btn-warning mt-2">Cancel</button>
+
+<table class="mt-3">
+  <tr>
+    <th>First name</th>
+    <th>Last name</th>
+    <th>Email</th>
+    <th>Phone</th>
+    <th>Company</th>
+    <th>DOB</th>
+    <th>Action</th>
+  </tr>
+  <tr *ngFor="let emp of employee; let i = index">
+    <td>{{ emp.firstname }}</td>
+    <td>{{ emp.lastname }}</td>
+    <td>{{ emp.email }}</td>
+    <td>{{ emp.phone }}</td>
+    <td>{{ emp.company }}</td>
+    <td>{{ emp.dob }}</td>
+    <td>
+      <div class="row">
+        <button class="btn btn-primary" (click)="edit(emp, i)">Edit</button
+        ><button class="btn btn-danger" (click)="deleteData(i)">Delete</button>
+      </div>
+    </td>
+  </tr>
+</table>
+<router-outlet></router-outlet>
